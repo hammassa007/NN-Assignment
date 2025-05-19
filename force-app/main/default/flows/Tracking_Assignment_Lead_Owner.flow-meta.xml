@@ -6,26 +6,57 @@
         <description>Set Owner Since field value</description>
         <name>Set_Owner_Since_Field</name>
         <label>Set Owner Since Field</label>
-        <locationX>176</locationX>
-        <locationY>287</locationY>
+        <locationX>50</locationX>
+        <locationY>395</locationY>
         <assignmentItems>
             <assignToReference>$Record.Owner_Since__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>nowValue</elementReference>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
             </value>
         </assignmentItems>
     </assignments>
+    <decisions>
+        <name>Is_Owner_Changed</name>
+        <label>Is Owner Changed?</label>
+        <locationX>182</locationX>
+        <locationY>287</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>1 OR (2 AND 3)</conditionLogic>
+            <conditions>
+                <leftValueReference>varF_IsNew</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>varF_IsNew</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Owner_Since_Field</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
     <formulas>
-        <name>IsNew</name>
+        <name>varF_IsNew</name>
         <dataType>Boolean</dataType>
         <expression>ISNEW()</expression>
-    </formulas>
-    <formulas>
-        <name>nowValue</name>
-        <dataType>DateTime</dataType>
-        <expression>NOW()</expression>
     </formulas>
     <interviewLabel>Tracking Assignment Lead Owner {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Tracking Assignment Lead Owner</label>
@@ -49,13 +80,11 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>50</locationX>
+        <locationX>56</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Set_Owner_Since_Field</targetReference>
+            <targetReference>Is_Owner_Changed</targetReference>
         </connector>
-        <filterFormula>OR(ISNEW(),
-ISCHANGED({!$Record.OwnerId}))</filterFormula>
         <object>Lead</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordBeforeSave</triggerType>
