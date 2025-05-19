@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Owner_Change</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    ISCHANGED(OwnerId),
+
+    OR(
+        AND(
+            $Profile.Name &lt;&gt; &apos;System Administrator&apos;,
+            $Profile.Name &lt;&gt; &apos;Contract Manager&apos;,
+            OR(
+                ISBLANK(Country),
+                ISBLANK(TEXT(LeadSource)),
+                ISNULL(NumberOfEmployees)
+            )
+        ),
+        AND(
+            $Profile.Name = &apos;Contract Manager&apos;,
+            OR(
+                ISBLANK(TEXT(LeadSource)),
+                ISBLANK(Country)
+            )
+        ),
+        AND(
+            $Profile.Name = &apos;System Administrator&apos;,
+            ISBLANK(TEXT(LeadSource))
+        )
+    )
+)</errorConditionFormula>
+    <errorDisplayField>OwnerId</errorDisplayField>
+    <errorMessage>You cannot change the Lead Owner unless required fields are filled in.</errorMessage>
+</ValidationRule>
