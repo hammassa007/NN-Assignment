@@ -21,7 +21,7 @@
 		<name>AssignmentRules</name>
 	</types>
 	<types>
-		<members>Country__c</members>
+		<members>*</members>
 		<name>CustomObject</name>
 	</types>
 	<types>

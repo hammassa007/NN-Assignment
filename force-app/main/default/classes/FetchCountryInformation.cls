@@ -2,7 +2,7 @@
  * @Author       : Mohammad Arafat Ali
  * @Description  : Apex class to make a Callout to Country Layer API
  *               : and syn country data in Salesforce with Country object.
- * @Date         : 05-20-2025
+ * @Date         : 05-23-2025
 **/
 
 public without sharing class FetchCountryInformation {
@@ -40,9 +40,10 @@ public without sharing class FetchCountryInformation {
                 //handle error response
                 //log transaction details
             }
-        }catch(Exception e){
+        }catch(Exception ex){
             //log exception
-            System.debug('Error fetching countries: '+e.getMessage());
+            ExceptionLogger.logException(ex,'FetchCountryInformation','fetchAndSyncCountryInfo', 'Apex');
+            System.debug('Error fetching countries: '+ex.getMessage());
         }
     }
 

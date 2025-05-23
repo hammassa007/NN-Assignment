@@ -12,7 +12,7 @@
             OR(
                 ISBLANK(Country),
                 ISBLANK(TEXT(LeadSource)),
-                ISNULL(NumberOfEmployees)
+                ISBLANK(NumberOfEmployees)
             )
         ),
         AND(
