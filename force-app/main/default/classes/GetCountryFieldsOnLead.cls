@@ -1,7 +1,7 @@
 /**
  * @Author       : Mohammad Arafat Ali
  * @Description  : Apex class to get country fields on Lead Object.
- * @Date         : 05-20-2025
+ * @Date         : 05-25-2025
 **/
 
 public class GetCountryFieldsOnLead {
@@ -32,6 +32,7 @@ public class GetCountryFieldsOnLead {
             }
         }catch(Exception e){
             //log exception
+            ExceptionLogger.logException(e,'GetCountryFieldsOnLead','getCountryFields', 'Apex');
             System.debug('=== Error updating leads ==='+e.getMessage());
         }
     }
