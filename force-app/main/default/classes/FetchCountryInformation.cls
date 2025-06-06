@@ -2,7 +2,7 @@
  * @Author       : Mohammad Arafat Ali
  * @Description  : Apex class to make a Callout to Country Layer API
  *               : and syn country data in Salesforce with Country object.
- * @Date         : 05-23-2025
+ * @Date         : 06-06-2025
 **/
 
 public without sharing class FetchCountryInformation {
@@ -61,12 +61,12 @@ public without sharing class FetchCountryInformation {
     public static Country__c createUpdateCountryRecord(CountryApiParser parsedObj, string clId, boolean isNew){
         Country__c cl = new Country__c();
         if(!isNew) 
-            cl.Id=clId;
-        cl.Name=parsedObj.name;
-        cl.Alpha2Code__c=parsedObj.alpha2Code;
-        cl.Alpha3Code__c=parsedObj.alpha3Code;
-        cl.Capital_City__c=parsedObj.capital;
-        cl.Region__c=parsedObj.region;
-        return cl;
+            cl.Id = clId;
+            cl.Name = parsedObj.name;
+            cl.Alpha2Code__c = parsedObj.alpha2Code;
+            cl.Alpha3Code__c = parsedObj.alpha3Code;
+            cl.Capital_City__c = parsedObj.capital;
+            cl.Region__c = parsedObj.region;
+            return cl;
     } 
 }
