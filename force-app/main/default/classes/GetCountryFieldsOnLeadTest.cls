@@ -27,9 +27,6 @@ public class GetCountryFieldsOnLeadTest {
             
         insert countryList;
         
-        c.Regional_Blocs__c = 'Test RegionBloc';
-        update c;
-
         List<Lead> leads = new List<Lead>();
         for (Country__c co : countryList) {
             Lead l = new Lead();
@@ -43,6 +40,9 @@ public class GetCountryFieldsOnLeadTest {
             leads.add(l);
         }
         insert leads;
+        
+        c.Regional_Blocs__c = 'Test RegionBloc';
+        update c;
     }
 
     @isTest
